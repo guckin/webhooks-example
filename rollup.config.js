@@ -23,5 +23,5 @@ function bundleHandler(input, output) {
 }
 
 export default [
-    bundleHandler('src/hello-world-handler.ts', 'build/hello-world-handler.mjs'),
+    bundleHandler('src/create-webhook-handler.ts', 'build/create-webhook-handler.mjs'),
 ];
