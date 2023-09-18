@@ -1,5 +1,5 @@
 {
-  "name": "cdk-template",
+  "name": "webhook-example",
   "version": "0.1.0",
   "scripts": {
     "test": "jest --testMatch=\"**/*.test.ts\" --coverage",

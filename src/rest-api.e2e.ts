@@ -1,6 +1,6 @@
 test('GET /hello-world', async () => {
-    const response = await fetch(`https://${process.env.STAGE}.api.helpfl.click/hello-world`, {
-        method: 'GET',
+    const response = await fetch(`https://${process.env.STAGE}-webhooks.api.helpfl.click/webhook`, {
+        method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         }

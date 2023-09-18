@@ -7,17 +7,17 @@ import {Certificate} from 'aws-cdk-lib/aws-certificatemanager';
 import {ARecord, HostedZone, RecordTarget} from 'aws-cdk-lib/aws-route53';
 import {ApiGateway} from 'aws-cdk-lib/aws-route53-targets';
 
-export type HelloWorldProps = StackProps & {
+export type AppStackProps = StackProps & {
     stage: string,
 };
 
-export class HelloWorldServiceStack extends Stack {
-    constructor(scope: Construct, id: string, props: HelloWorldProps) {
+export class AppStack extends Stack {
+    constructor(scope: Construct, id: string, props: AppStackProps) {
         super(scope, id, props);
 
-        const apiFunction = new Function(this, 'MyFunction', {
+        const apiFunction = new Function(this, 'create-webhook-function', {
             runtime: Runtime.NODEJS_16_X,
-            handler: 'hello-world-handler.handler',
+            handler: 'create-webhook-handler',
             code: Code.fromAsset(path.join(__dirname, '..', 'build')),
             environment: {
                 STAGE: props.stage
@@ -33,7 +33,7 @@ export class HelloWorldServiceStack extends Stack {
             }
         });
 
-        api.root.addMethod('GET', lambdaIntegration);
+        api.root.addMethod('POST', lambdaIntegration);
 
         const cert = Certificate.fromCertificateArn(
             this,
@@ -42,14 +42,14 @@ export class HelloWorldServiceStack extends Stack {
         );
 
         api.addDomainName('DomainName', {
-            domainName: `${props.stage}-template.api.helpfl.click`,
+            domainName: `${props.stage}-webhooks.api.helpfl.click`,
             certificate: cert,
             endpointType: EndpointType.EDGE,
-            basePath: 'hello-world'
+            basePath: 'webhook'
         });
 
         new ARecord(this, 'ARecord', {
-            recordName: `${props.stage}-template.api.helpfl.click`,
+            recordName: `${props.stage}-webhooks.api.helpfl.click`,
             target: RecordTarget.fromAlias(new ApiGateway(api)),
             zone: HostedZone.fromLookup(this, 'HostedZone', {
                 domainName: 'helpfl.click'

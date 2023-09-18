@@ -1,7 +1,7 @@
-import { HelloWorldHandler } from './hello-world-handler';
+import { CreateWebhookHandler } from './create-webhook-handler';
 
 test('returns 200 Hello World', async () => {
-    const handler = new HelloWorldHandler();
+    const handler = new CreateWebhookHandler();
 
     const response = await handler.invoke();
     

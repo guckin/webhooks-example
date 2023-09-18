@@ -14,7 +14,7 @@ function bundleHandler(input, output) {
         },
         plugins: [
             typescript(),
-            resolve({exportConditions: ["node"], preferBuiltins: true}),
+            resolve({exportConditions: ['node'], preferBuiltins: true}),
             commonjs(),
             terser(),
             json()

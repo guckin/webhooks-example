@@ -1,6 +1,6 @@
 import { APIGatewayProxyStructuredResultV2 } from 'aws-lambda';
 
-export class HelloWorldHandler {
+export class CreateWebhookHandler {
 
     invoke = (): Promise<APIGatewayProxyStructuredResultV2> => {
         return Promise.resolve({
@@ -11,4 +11,4 @@ export class HelloWorldHandler {
     }
 }
 
-export const handler = new HelloWorldHandler().invoke;
+export const handler = new CreateWebhookHandler().invoke;
